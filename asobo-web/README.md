@@ -27,15 +27,14 @@ mvn spring-boot:run
 1. [Railway](https://railway.app/) で New Project → Deploy from GitHub repo
 2. `WATANABE2256/ASOBO` を選択
 
-### 2. PostgreSQL を追加
+### 2. PostgreSQL を追加（必須）
 
 1. プロジェクトで **New** → **Database** → **PostgreSQL**
-2. Web サービスの **Variables** で PostgreSQL サービスを **Reference** して以下を接続:
-   - `PGHOST`
-   - `PGPORT`
-   - `PGUSER`
-   - `PGPASSWORD`
-   - `PGDATABASE`
+2. Web サービスの **Variables** で PostgreSQL サービスを **Add Reference** して以下を接続:
+   - `DATABASE_URL`（推奨）
+   - または `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`
+
+PostgreSQL を接続しないとアプリは起動しません。
 
 ### 3. 環境変数（Web サービス）
 
@@ -54,7 +53,10 @@ mvn spring-boot:run
 
 ### 5. デプロイ確認
 
-デプロイ後、Railway が付与する URL で `/swipe` にアクセスしてください。
+- ヘルスチェック: `/health`（`OK` が返れば成功）
+- アプリ: Railway の URL で `/swipe` にアクセス
+
+ログに `Tomcat started on port` が表示され、`Connected to PostgreSQL` 相当の DB 接続が成功していることを確認してください。
 
 ## 主な機能
 
