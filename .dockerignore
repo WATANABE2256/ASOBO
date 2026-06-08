@@ -1,0 +1,14 @@
+apache-maven-*/
+maven.zip
+**/target/
+**/data/
+**/*.mv.db
+**/*.trace.db
+**/*.lock.db
+**/node_modules/
+**/.next/
+line-destiny-chooser/
+.git/
+.idea/
+*.iml
+.cursor/

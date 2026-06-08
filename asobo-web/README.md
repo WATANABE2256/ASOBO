@@ -7,17 +7,52 @@
 - Java 17
 - Spring Boot 3.3
 - Spring Data JPA
-- H2 Database（ファイル永続化）
+- H2 Database（ローカル開発）
+- PostgreSQL（本番 / Railway）
 - Thymeleaf
 
-## 起動方法
+## ローカル起動
 
 ```bash
 cd asobo-web
 mvn spring-boot:run
 ```
 
-ブラウザで http://localhost:8080 を開いてください。
+ブラウザで http://localhost:8080 を開いてください（H2 プロファイル `local` がデフォルト）。
+
+## Railway デプロイ
+
+### 1. GitHub リポジトリを Railway に接続
+
+1. [Railway](https://railway.app/) で New Project → Deploy from GitHub repo
+2. `WATANABE2256/ASOBO` を選択
+
+### 2. PostgreSQL を追加
+
+1. プロジェクトで **New** → **Database** → **PostgreSQL**
+2. Web サービスの **Variables** で PostgreSQL サービスを **Reference** して以下を接続:
+   - `PGHOST`
+   - `PGPORT`
+   - `PGUSER`
+   - `PGPASSWORD`
+   - `PGDATABASE`
+
+### 3. 環境変数（Web サービス）
+
+| 変数 | 値 |
+|------|-----|
+| `SPRING_PROFILES_ACTIVE` | `prod` |
+
+`SPRING_PROFILES_ACTIVE=prod` は Dockerfile にも設定済みです。
+
+### 4. ビルド設定
+
+リポジトリルートの `Dockerfile` と `railway.toml` を使用します。  
+Root Directory の変更は不要です。
+
+### 5. デプロイ確認
+
+デプロイ後、Railway が付与する URL で `/swipe` にアクセスしてください。
 
 ## 主な機能
 
@@ -30,7 +65,9 @@ mvn spring-boot:run
 
 ## データベース
 
-H2 ファイル DB を使用します（`./data/asobo.mv.db`）。
+### ローカル（H2）
+
+`./data/asobo.mv.db` にファイル保存。
 
 H2 コンソール: http://localhost:8080/h2-console
 
@@ -38,9 +75,13 @@ H2 コンソール: http://localhost:8080/h2-console
 - ユーザー: `sa`
 - パスワード: （空）
 
+### 本番（PostgreSQL / Railway）
+
+`application-prod.properties` が Railway の PostgreSQL 変数を使用します。
+
 ## 初期データ
 
-起動時に以下が自動投入されます。
+起動時に DB が空の場合、以下が自動投入されます。
 
 - ユーザー 4 名（ゆうき、さくら、たろう、みか）
 - スポット 5 件（渋谷エリア）

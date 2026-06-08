@@ -1,0 +1,10 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "asobo-web/Dockerfile"
+watchPatterns = ["asobo-web/**"]
+
+[deploy]
+healthcheckPath = "/swipe"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
