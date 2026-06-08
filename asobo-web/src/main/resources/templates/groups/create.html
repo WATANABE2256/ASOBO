@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - グループ作成</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <a th:href="@{/groups}" class="header-link">←</a>
+        <span class="header-title">グループ作成</span>
+        <span></span>
+    </header>
+
+    <div class="content" style="display:flex;flex-direction:column;min-height:calc(100vh - 120px)">
+        <form th:action="@{/groups/create}" method="post">
+            <label class="input-label">グループ名</label>
+            <input type="text" name="name" class="input-field" placeholder="週末おでかけ部" required/>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">作成する</button>
+                <a th:href="@{/groups/invite}" class="btn-primary btn-line" style="margin-top:8px;display:block">LINEで招待する</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

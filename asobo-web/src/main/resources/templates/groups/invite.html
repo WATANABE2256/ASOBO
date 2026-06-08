@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - 招待</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <div class="center-content">
+        <div class="avatar avatar-md" th:style="'background-color:' + ${inviter.color}" th:text="${inviter.initial}"></div>
+        <p style="font-size:14px;font-weight:700;margin-top:12px" th:text="${inviter.name} + 'さんから招待が届きました'"></p>
+        <p class="subtitle" th:text="'「' + ${group.name} + '」に参加しますか？'"></p>
+
+        <form th:action="@{/groups/select}" method="post" style="width:100%;margin-top:32px">
+            <input type="hidden" name="groupId" th:value="${group.id}"/>
+            <button type="submit" class="btn-primary">参加する</button>
+        </form>
+        <a th:href="@{/groups}" class="btn-outline" style="margin-top:8px">あとで参加</a>
+    </div>
+</div>
+</body>
+</html>

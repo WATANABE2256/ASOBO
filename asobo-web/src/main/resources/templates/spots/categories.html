@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - カテゴリ</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <span></span>
+        <span class="header-title">カテゴリからさがす</span>
+        <span></span>
+    </header>
+
+    <div class="content">
+        <div class="category-grid">
+            <a th:each="cat : ${categories}" th:href="@{/spots(category=${cat})}" class="category-item">
+                <span class="category-icon" th:text="${cat.emoji}"></span>
+                <span class="category-label" th:text="${cat.label}"></span>
+            </a>
+        </div>
+        <a th:href="@{/swipe}" class="btn-primary" style="margin-top:24px">スワイプでさがす</a>
+    </div>
+
+    <div th:replace="~{fragments/bottom-nav :: bottomNav(${activeTab})}"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="bottomNav(activeTab)" class="bottom-nav">
+    <a th:href="@{/spots/categories}" class="nav-item" th:classappend="${activeTab == 'search'} ? 'active'">
+        <span class="nav-icon">🔍</span>
+        <span>さがす</span>
+    </a>
+    <a th:href="@{/spots}" class="nav-item" th:classappend="${activeTab == 'popular'} ? 'active'">
+        <span class="nav-icon">⭐</span>
+        <span>人気</span>
+    </a>
+    <a th:href="@{/schedule}" class="nav-item" th:classappend="${activeTab == 'schedule'} ? 'active'">
+        <span class="nav-icon">📅</span>
+        <span>予定</span>
+    </a>
+    <a th:href="@{/groups}" class="nav-item" th:classappend="${activeTab == 'mypage'} ? 'active'">
+        <span class="nav-icon">👤</span>
+        <span>マイページ</span>
+    </a>
+</nav>
+</html>

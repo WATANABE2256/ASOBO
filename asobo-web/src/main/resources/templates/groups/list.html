@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - マイページ</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <span></span>
+        <span class="header-title">マイページ</span>
+        <span></span>
+    </header>
+
+    <div class="content">
+        <p class="page-title">グループ一覧</p>
+        <p class="subtitle" th:text="'現在のグループ: ' + ${currentGroup.name}"></p>
+
+        <form th:each="group : ${groups}" th:action="@{/groups/select}" method="post" style="margin-bottom:8px">
+            <input type="hidden" name="groupId" th:value="${group.id}"/>
+            <button type="submit" class="group-select"
+                    th:classappend="${group.id == currentGroup.id} ? 'current'"
+                    th:text="${group.name}"></button>
+        </form>
+
+        <a th:href="@{/groups/create}" class="btn-primary" style="margin-top:16px">グループを作成</a>
+        <a th:href="@{/groups/invite}" class="btn-outline" style="margin-top:8px">招待を確認</a>
+    </div>
+
+    <div th:replace="~{fragments/bottom-nav :: bottomNav(${activeTab})}"></div>
+</div>
+</body>
+</html>

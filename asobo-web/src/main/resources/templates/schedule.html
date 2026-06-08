@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - 予定</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <span></span>
+        <span class="header-title">予定</span>
+        <span></span>
+    </header>
+
+    <div class="content">
+        <div class="tab-switch">
+            <a th:href="@{/schedule(status='UPCOMING')}" th:classappend="${status.name() == 'UPCOMING'} ? 'active'">これから</a>
+            <a th:href="@{/schedule(status='PAST')}" th:classappend="${status.name() == 'PAST'} ? 'active'">過去</a>
+        </div>
+
+        <div th:if="${#lists.isEmpty(plans)}" class="subtitle">予定がありません</div>
+
+        <div th:each="plan : ${plans}" class="list-card">
+            <div class="list-thumb" th:classappend="${plan.spot.gradient}" th:text="${plan.spot.emoji}"></div>
+            <div class="list-info">
+                <p class="group-name" th:text="${plan.group.name}"></p>
+                <p class="spot-name" th:text="${plan.spot.name}"></p>
+                <p class="meta" th:text="'📅 ' + ${#temporals.format(plan.scheduledAt, 'yyyy/M/d HH:mm')}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/bottom-nav :: bottomNav(${activeTab})}"></div>
+</div>
+</body>
+</html>

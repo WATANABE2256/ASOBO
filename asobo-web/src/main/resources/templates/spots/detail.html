@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${spot.name} + ' - ASOBO'">ASOBO</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <a th:href="@{/spots}" class="header-link">←</a>
+        <span class="header-title">スポット詳細</span>
+        <span></span>
+    </header>
+
+    <div class="content">
+        <div class="detail-image spot-image" th:classappend="${spot.gradient}" th:text="${spot.emoji}"></div>
+        <h2 class="card-title" th:text="${spot.name}"></h2>
+        <p class="card-meta" th:text="'⭐ ' + ${spot.rating} + ' · ' + ${spot.category.label}"></p>
+
+        <div class="detail-section">
+            <p class="detail-label">営業時間</p>
+            <p class="detail-text" th:text="${spot.hours}"></p>
+        </div>
+        <div class="detail-section">
+            <p class="detail-label">住所</p>
+            <p class="detail-text" th:text="${spot.address}"></p>
+        </div>
+        <div class="detail-section">
+            <p class="detail-label">料金目安</p>
+            <p class="detail-text" th:text="'〜' + ${#numbers.formatInteger(spot.priceMax, 1, 'COMMA')} + '円'"></p>
+        </div>
+        <div class="detail-section" th:if="${spot.description}">
+            <p class="detail-label">説明</p>
+            <p class="detail-text" th:text="${spot.description}"></p>
+        </div>
+    </div>
+
+    <div class="footer-actions">
+        <a th:href="'https://www.google.com/maps/search/?api=1&query=' + ${spot.address}" target="_blank" class="btn-outline">マップで開く</a>
+        <a th:href="@{/swipe(spotId=${spot.id})}" class="btn-primary" style="margin-top:8px">このスポットで投票する</a>
+    </div>
+</div>
+</body>
+</html>

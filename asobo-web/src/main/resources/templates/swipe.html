@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - さがす</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <a th:href="@{/groups}" class="header-link">☰</a>
+        <span class="header-title">ASOBO</span>
+        <a th:href="@{/voting(spotId=${spot.id})}" class="header-link">🔔</a>
+    </header>
+
+    <div class="content">
+        <div class="filter-row">
+            <span class="chip active" th:text="'📍 ' + ${spot.area}">📍 渋谷</span>
+            <span class="chip" th:text="'👥 ' + ${group.name}">👥 グループ</span>
+            <span class="chip" th:text="'💰 〜' + ${spot.priceMax} + '円'">💰 料金</span>
+            <span class="chip">🕐 今日</span>
+        </div>
+
+        <div class="card">
+            <div class="spot-image" th:classappend="${spot.gradient}" th:text="${spot.emoji}">🎳</div>
+            <div class="card-body">
+                <h2 class="card-title" th:text="${spot.name}">Round 1 渋谷店</h2>
+                <div class="card-meta">
+                    <span th:text="'⭐ ' + ${spot.rating}">⭐ 4.2</span>
+                    &nbsp;·&nbsp;
+                    <span th:text="'🚶 徒歩' + ${spot.walkMinutes} + '分'">🚶 徒歩8分</span>
+                    &nbsp;·&nbsp;
+                    <span th:text="'💴 〜' + ${#numbers.formatInteger(spot.priceMax, 1, 'COMMA')} + '円'">💴 料金</span>
+                </div>
+                <div class="tags">
+                    <span class="tag" th:each="tag : ${spot.tagList}" th:text="'#' + ${tag}">#屋内</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-row">
+            <form th:action="@{/swipe/vote}" method="post" class="inline-form">
+                <input type="hidden" name="spotId" th:value="${spot.id}"/>
+                <input type="hidden" name="voteType" value="PASS"/>
+                <button type="submit" class="btn-pass">✕</button>
+            </form>
+            <form th:action="@{/swipe/vote}" method="post" class="inline-form">
+                <input type="hidden" name="spotId" th:value="${spot.id}"/>
+                <input type="hidden" name="voteType" value="WANT"/>
+                <button type="submit" class="btn-want">♥</button>
+            </form>
+        </div>
+        <p class="action-label">パス / 行きたい！</p>
+        <p class="subtitle" th:text="'ログイン中: ' + ${user.name} + ' · ' + ${group.name}"></p>
+    </div>
+
+    <div th:replace="~{fragments/bottom-nav :: bottomNav(${activeTab})}"></div>
+</div>
+</body>
+</html>

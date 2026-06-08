@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - 決定</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <div class="center-content">
+        <span class="celebration">🎉</span>
+        <h2 style="font-size:18px;font-weight:900;margin-bottom:4px">決定しました！</h2>
+        <p class="subtitle">全員が「行きたい」と回答しました</p>
+
+        <div class="card" style="width:100%;margin:16px 0;text-align:left">
+            <div class="spot-image" th:classappend="${spot.gradient}" th:text="${spot.emoji}"></div>
+            <div class="card-body">
+                <h3 class="card-title" th:text="${spot.name}"></h3>
+                <p class="card-meta">
+                    <span th:text="'⭐ ' + ${spot.rating}"></span> ·
+                    <span th:text="'徒歩' + ${spot.walkMinutes} + '分'"></span> ·
+                    <span th:text="'〜' + ${#numbers.formatInteger(spot.priceMax, 1, 'COMMA')} + '円'"></span>
+                </p>
+                <p class="card-meta" th:text="${spot.address}"></p>
+            </div>
+        </div>
+
+        <a th:href="@{/spots/{id}(id=${spot.id})}" class="btn-primary" style="margin-bottom:8px">詳細を見る</a>
+        <a th:href="'https://www.google.com/maps/search/?api=1&query=' + ${spot.address}" target="_blank" class="btn-outline">マップで開く</a>
+        <a th:href="@{/swipe}" class="btn-outline" style="margin-top:12px">続けてさがす</a>
+    </div>
+</div>
+</body>
+</html>

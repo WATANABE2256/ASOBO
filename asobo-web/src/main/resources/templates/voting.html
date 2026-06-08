@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASOBO - 投票状況</title>
+    <link rel="stylesheet" th:href="@{/css/asobo.css}"/>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <a th:href="@{/swipe(spotId=${spot.id})}" class="header-link">←</a>
+        <span class="header-title">投票状況</span>
+        <span class="header-link"></span>
+    </header>
+
+    <div class="content">
+        <p class="subtitle" th:text="${spot.name} + ' — ' + ${votedCount} + '人中' + ${memberCount} + '人が投票済み'"></p>
+
+        <div class="card" style="margin-bottom:16px">
+            <div class="spot-image" th:classappend="${spot.gradient}" th:text="${spot.emoji}" style="height:112px;font-size:40px"></div>
+        </div>
+
+        <div th:each="status : ${statuses}" class="member-row">
+            <div class="member-info">
+                <div class="avatar avatar-sm" th:style="'background-color:' + ${status.user.color}" th:text="${status.user.initial}">ゆ</div>
+                <span th:text="${status.user.name}" style="font-size:12px;font-weight:500"></span>
+            </div>
+            <span th:if="${status.pending}" class="vote-pending">投票待ち…</span>
+            <span th:if="${status.voteType != null and status.voteType.name() == 'WANT'}" class="vote-want">♥ 行きたい</span>
+            <span th:if="${status.voteType != null and status.voteType.name() == 'PASS'}" class="vote-pass">✕ パス</span>
+        </div>
+
+        <div th:if="${votedCount < memberCount}" class="alert-box">
+            あと <span th:text="${memberCount - votedCount}"></span> 人の投票を待っています
+        </div>
+        <div th:if="${votedCount == memberCount}" class="alert-box">
+            全員の投票が完了しました
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/bottom-nav :: bottomNav(${activeTab})}"></div>
+</div>
+</body>
+</html>
