@@ -48,7 +48,9 @@ mvn spring-boot:run
 ### 4. ビルド設定
 
 リポジトリルートの `Dockerfile` と `railway.toml` を使用します。  
-Root Directory の変更は不要です。
+**Root Directory は空のまま**（リポジトリルート）にしてください。
+
+> Root Directory を `asobo-web` に設定する場合は、`asobo-web/railway.toml` が使われます。
 
 ### 5. デプロイ確認
 
