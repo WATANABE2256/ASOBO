@@ -5,7 +5,7 @@ COPY asobo-web/pom.xml .
 COPY asobo-web/src ./src
 RUN mvn -q -DskipTests package
 
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/asobo-web-*.jar app.jar
 

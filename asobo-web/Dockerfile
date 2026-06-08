@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn -q -DskipTests package
 
 # Run stage
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/asobo-web-*.jar app.jar
 

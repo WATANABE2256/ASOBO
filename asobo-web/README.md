@@ -30,11 +30,11 @@ mvn spring-boot:run
 ### 2. PostgreSQL を追加（必須）
 
 1. プロジェクトで **New** → **Database** → **PostgreSQL**
-2. Web サービスの **Variables** で PostgreSQL サービスを **Add Reference** して以下を接続:
-   - `DATABASE_URL`（推奨）
+2. Web サービスの **Variables** → **Add Reference** → PostgreSQL を選択し、以下を接続:
+   - `DATABASE_URL` または `DATABASE_PRIVATE_URL`（推奨）
    - または `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`
 
-PostgreSQL を接続しないとアプリは起動しません。
+PostgreSQL 未接続時は一時的に H2（メモリ）で起動しますが、本番では必ず PostgreSQL を接続してください。
 
 ### 3. 環境変数（Web サービス）
 

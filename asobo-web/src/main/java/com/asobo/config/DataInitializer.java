@@ -40,9 +40,17 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (userRepository.count() > 0) {
+        try {
+            if (userRepository.count() > 0) {
+                return;
+            }
+        } catch (Exception e) {
+            org.slf4j.LoggerFactory.getLogger(DataInitializer.class)
+                    .error("Database not ready for seed data: {}", e.getMessage());
             return;
         }
+
+        try {
 
         User yuki = userRepository.save(new User("ゆうき", "#FF8A00"));
         User sakura = userRepository.save(new User("さくら", "#FF6B6B"));
@@ -93,6 +101,10 @@ public class DataInitializer implements CommandLineRunner {
         Plan pastPlan = new Plan(lunchGroup, sky, LocalDateTime.of(2026, 5, 10, 12, 0));
         pastPlan.setStatus(PlanStatus.PAST);
         planRepository.save(pastPlan);
+        } catch (Exception e) {
+            org.slf4j.LoggerFactory.getLogger(DataInitializer.class)
+                    .error("Failed to seed initial data: {}", e.getMessage());
+        }
     }
 
     private Spot createSpot(
